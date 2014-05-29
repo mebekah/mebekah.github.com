@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tiddle</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    .lsapp-body-user {
+      background: -webkit-linear-gradient(#8DA9E2, #EDF3FF); /* For Safari */
+      background: -o-linear-gradient(#D1E0FF, #EDF3FF); /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient(#D1E0FF, #EDF3FF); /* For Firefox 3.6 to 15 */
+      background: linear-gradient(#7094DB, #EDF3FF); /* Standard syntax */
+    }
+    #heading { margin-top:10px; }
+    #main-title {padding-top:0; margin-top:0;}
+    #trending-links {text-align: right; padding-top:16px;}
+    ul li {margin-bottom:10px;}
+    li.list-label {font-weight:bold;}
+    #lsapp-displayname {font-size:18px;}
+    #lsapp-profile-edit {}
+    #lsapp-profile-edit li { border-top:1px solid #a0a0a0;padding:7px 0px; margin-bottom:0;}
+    #lsapp-profile-edit li:last-child {border-bottom: 1px solid #a0a0a0;}
+    #lsapp-friend-requests { margin-left:5px; }
+    .container {  }
+    .lsapp-user-main { width:900px; background:#ffffff;}
+    .glyphicon-top {}
+    #lsapp-list-data {}
+    .btn-large-pad {padding-top:12px; padding-bottom:12px;}
+    .animated {
+        -webkit-transition: height 0.2s;
+        -moz-transition: height 0.2s;
+        transition: height 0.2s;
+      }
+      .lsapp-small {font-size:90%;}
+      .lsapp-sidebar-img {}
+      .lsapp-sidebar-lists {margin:8px 0;}
+      .more-left {margin-right:10px;}
+      .lsapp-sidebar-container {  }
+      .lsapp-sidebar-container h3 {font-size:16px; font-weight:bold; }
+      #lsapp-friend-container {margin-left:0px;}
+      #lsapp-friends-container h4 {font-size:14px; font-weight:bold; padding-top:0px; padding-bottom: 1px;}
+      #lsapp-friends-container .first-item {padding-top:0; margin-top:0;}
+      .lsapp-pending-info {padding-left:10px;}
+      .lsapp-pending-name {font-size:95%;}
+      .more-friends {display: block !important;}
+      .clickable {cursor: pointer;}
+      .list-item-actions {margin-top:10px;}
+      .lsapp-drag-handle:after {
+        content: "\22EE";
+        font-weight:bold;
+        color:#cccccc;
+        font-size:36px;
+        margin-top:-10px;
+        display:inline-block;
+
+        } 
+      .active-name { width:68%; margin-top: 4px;}
+      .active-name.finished-name {width:80%;}
+      .list-item-edit .active-name.finished-name {margin-left:70px;}
+      #lsapp-active-list {}
+      #lsapp-active-list .tdl-list-item { margin-top:15px;}
+      #lsapp-footer-user {width:50%; margin-left:auto; margin-right:auto;}
+      #footer-links {}
+      #footer-links li {}
+      #footer-links li  a {color:#000000;}
+
+      .auto-expand {
+        display: block;
+        overflow: hidden;
+        height: 150px;
+        /*border: 1px solid #ccc;*/
+        -webkit-transition: height 0.6s linear 0.2s;
+        -moz-transition: height 0.6s linear 0.2s;
+        transition: height 0.6s linear 0.2s;
+      }
+      .auto-expand:hover {
+        height: 500px;
+        overflow-y:scroll;
+        overflow-x:hidden;
+      }
+      .lsapp-left-list-container {
+       /* background: #dbe4ee;
+        -webkit-box-shadow: inset 1px -8px 8px -9px rgba(0,0,0,0.7);
+        -moz-box-shadow: inset 1px -8px 8px -9px rgba(0,0,0,0.7);
+        box-shadow: inset 1px -8px 8px -9px rgba(0,0,0,0.7);
+        */
+      }
+      #lsapp-list-data { margin-top:30px;}
+      li.tdl-list-item {border-top:1px solid #cccccc; padding-top:15px; margin-bottom:-15px; font-size:90%;}
+      li.tdl-list-item:last-child {border-bottom:1px solid #cccccc;}
+      .list-item-edit {padding-bottom:15px;}
+      div.finished {padding-right:10px;}
+    </style>
+  </head>
+  <body class="lsapp-body-user">
+    <div class="container lsapp-user-main">
+      <div id="heading">
+        <h1 id="main-title" class="col-sm-2"><span>tiddle</span></h1>
+        <ul id='trending-links' class='list-inline col-sm-6'>
+          <li class="list-label small">Popular:</li>
+          <li class="small"><a href='#'>#Victoriassecret</a></li>
+          <li class="small"><a href='#'>#GripeO</a></li>
+          <li class="small"><a href='#'>#TiddleDevelopment</a></li>
+          <li class="small"><a href='#'>more</a></li>
+        </ul>
+        <div id='search-container' class='col-sm-4'>
+          <form role="form" class="form-inline">
+            <div class="form-group">
+              <label class='sr-only ie-render' for='search'>Search</label>
+              <input type="text" name="search" id="search" class='form-control' placeholder="#tags or people"/>
+              <button type="submit" class="btn btn-default">find</button>
+            </div>
+          </form>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+        <div class="col-sm-4">
+
+          <div id="lsapp-profile-container">
+           
+            <!--profile pic-->
+            <div id="lsapp-profile-pic" class="normal-size">
+              <img src="brando.jpg" height="175" width="175" class="img-responsive img-thumbnail" alt="profile thumbnail"/>
+            </div>
+             <h2 id="lsapp-displayname"><span>DaveyJonesLocker</span></h2>
+            <div id="lsapp-profile-displaydata">
+              <!--links, blurb, etc?-->
+            </div>
+            <ul id="lsapp-profile-edit" class="list-unstyled">
+              <li><a href="#">Preferences</a></li>
+              <li><a href="#">Logout</a></li>
+              <!--
+              <li><a href="#">Send Message (If not you)</a></li>
+              <li><a href="#">Become buddies with DaveyJonesLocker</a></li>
+              -->
+            </ul>
+          </div>
+          <div id="lsapp-create-newlist">
+            <div>You are awesome! Keep the love going by making another list!</div>
+            <button type="button" class="btn btn-default btn-large"><span class="glyphicon glyphicon-plus"> </span> New List</button>
+          </div>
+          <div id="lsapp-list-container" class="lsapp-sidebar-container list-group">
+            <h3 class='list-group-item'>Lists<span class="badge pull-right">3</span></h3>
+            <ul class="list-unstyled saved-lists lsapp-small list-group-item lsapp-left-list-container" id="lsapp-saved-lists">
+              <li><a href="#"><span>My First List</span></a></li>
+              <li><a href="#"><span>Death Star Ideas</span></a></li>
+              <li><a href="#"><span>Favorite Russian Groups</span></a></li>
+              <li><a href="#"><span>Songs that suck</span></a></li>
+              <li><a href="#"><span>Something something Dark Side</span></a></li>
+              <li><a href="#"><span>Ways to really annoy people</span></a></li>
+              <li><a href="#"><span>Favorite 80's songs</span></a></li>
+              <li><a href="#"><span>Something with a really long title to test the wrapping capabilities of the container and widget</span></a></li>
+            </ul>
+          </div>
+          <div id="lsapp-friends-container" class="lsapp-sidebar-container list-group">
+            <!--<h3><a href="#" class="list-group-item active">Friends <span class="badge pull-right">14</span></a></h3> -->
+            <!-- up to 100 friends would be visible here, otherwise, lod into main view. Main view would have a friend filter with autocomplete and submit on keyup -->
+            <!--<ul id="lsapp-friends" class='list-unstyled lsapp-small'>
+              <li>Requests
+                <ul id="lsapp-friend-requests" class="list-unstyled">
+                  <li>TheRealJean <a href="#"><span>Accept</span></a> | <a href="#"><span>Decline</span></a></li>
+                  <li>SteveMillerBand <a href="#"><span>Accept</span></a> | <a href="#"><span>Decline</span></a></li>
+                </ul>
+              </li>
+              <li><a href="#"><img src="jessicaalba.jpg" border="0" height="40" width="40" alt="" class="pull-left lsapp-sidebar-img"/><div class="pull-left col-sm-9">JennyLeftFoot</div><div class="clearfix"></div></a></li>
+              <li><a href="#"><img src="spielberg.jpg" border="0" height="40" width="40" alt="" class="pull-left lsapp-sidebar-img"/><div class="pull-left col-sm-9">TomasHolmstrom</div><div class="clearfix"></div></a></li>
+               <li><a href="#"><img src="quentin.jpg" border="0" height="40" width="40" alt="" class="pull-left lsapp-sidebar-img"/><div class="pull-left col-sm-9">RicardoAmI</div><div class="clearfix"></div></a></li>
+               <li><a href="#"><img src="monicahoran.jpg" border="0" height="40" width="40" alt="" class="pull-left lsapp-sidebar-img"/><div class="pull-left col-sm-9">RicardoAmI</div><div class="clearfix"></div></a></li>
+              <li class="more more-friends more-left"><div class="pull-right"><a href="#">more...</a></div><div class="clearfix"></div></li>
+            </ul>
+            -->
+            <h3 class='list-group-item'>Friends <span class="badge pull-right">14</span></h3>
+            <div class='list-group-item first-item'>
+              <h4>Pending</h4>
+              <ul id="lsapp-friend-requests" class="list-unstyled">
+                <li><a href="#"><img src="Erin.jpg" border="0" height="40" width="40" alt="" class="lsapp-sidebar-img pull-left"/></a><div class="lsapp-pending-info pull-left"><span class="lsapp-pending-name">ErinGray</span><div class="lsapp-pending-actions"><a href="#"><span class="small">Accept</span></a> | <a href="#"><span class="small">Decline</span></a></div></div><div class="clearfix"></div></li>
+                <li><a href="#"><img src="Frodo.jpg" border="0" height="40" width="40" alt="" class="lsapp-sidebar-img pull-left"/></a><div class="lsapp-pending-info pull-left"><span class="lsapp-pending-name">RealFrodoBaggins</span><div class="lsapp-pending-actions"><a href="#"><span class="small">Accept</span></a> | <a href="#"><span class="small">Decline</span></a></div></div><div class="clearfix"></div></li>
+                <li><a href="#"><img src="anjelah.jpg" border="0" height="40" width="40" alt="" class="lsapp-sidebar-img pull-left"/></a><div class="lsapp-pending-info pull-left"><span class="lsapp-pending-name">DavayDershazzarooki24utoo</span><div class="lsapp-pending-actions"><a href="#"><span class="small">Accept</span></a> | <a href="#"><span class="small">Decline</span></a></div></div><div class="clearfix"></div></li>
+                <li class="more more-friends more-left"><div class="pull-right"><a href="#" class="small">view all requests (14)...</a></div><div class="clearfix"></div></li>
+              </ul>
+            </div>
+            <ul id="lsapp-friend-container" class="list-inline list-group-item">
+              <li><a href="#" class="tip" data-toggle="tooltip" title="JennyLeftFoot"><img src="jessicaalba.jpg" border="0" height="40" width="40" alt="" class="lsapp-sidebar-img"/></a></li>
+              <li><a href="#" class="tip" data-toggle="tooltip" title="tomasholmstrom"><img src="spielberg.jpg" border="0" height="40" width="40" alt="" class="lsapp-sidebar-img"/></a></li>
+              <li><a href="#" class="tip" data-toggle="tooltip" title="RicardoAmI"><img src="quentin.jpg" border="0" height="40" width="40" alt="" class="lsapp-sidebar-img"/></a></li>
+              <li><a href="#" class="tip" data-toggle="tooltip" title="ShireFolksRULE"><img src="Bilbo.gif" border="0" height="40" width="40" alt="" class="lsapp-sidebar-img"/></a></li>
+              <li><a href="#" class="tip" data-toggle="tooltip" title="mom4evers"><img src="monicahoran.jpg" border="0" height="40" width="40" alt="" class="lsapp-sidebar-img"/></a></li>
+              <li><a href="#" class="tip" data-toggle="tooltip" title="YourMama"><img src="sofia2.jpg" border="0" height="40" width="40" alt="" class="lsapp-sidebar-img"/></a></li>
+              <li><a href="#" class="tip" data-toggle="tooltip" title="RealLaurenGraham"><img src="laurengraham.jpg" border="0" height="40" width="40" alt="" class="lsapp-sidebar-img"/></a></li>
+              <li><a href="#" class="tip" data-toggle="tooltip" title="FugeesGroup"><img src="fugees.gif" border="0" height="40" width="40" alt="" class="lsapp-sidebar-img"/></a></li>
+              <li><a href="#" class="tip" data-toggle="tooltip" title="PhilipRosenthal"><img src="philiprosenthal.jpg" border="0" height="40" width="40" alt="" class="lsapp-sidebar-img"/></a></li>
+              <li><a href="#" class="tip" data-toggle="tooltip" title="KiraReedXXX"><img src="kirareed.jpg" border="0" height="40" width="40" alt="" class="lsapp-sidebar-img"/></a></li>
+              <li><a href="#" class="tip" data-toggle="tooltip" title="WhoaNellyFurtado"><img src="nellyfurtado.jpg" border="0" height="40" width="40" alt="" class="lsapp-sidebar-img"/></a></li>
+              <li class="more more-friends more-left"><div class="pull-right"><a href="#" class="small">more...</a></div><div class="clearfix"></div></li>
+            </ul>
+          </div>
+          <div id="lsapp-messages-container" class="lsapp-sidebar-container list-group">
+            <h3 class="list-group-item">Notifications <span class="badge pull-right">3</span></h3> <!-- number is new messages -->
+            <!-- when expanded, would show up to 10 old messages, or as many as 50 new messages clicking more will open more until 50 is reached, then more link would open message history in main page up to 200 -->
+            <div class="list-group-item">
+              <ul id="lsapp-messages" class='list-unstyled lsapp-small lsapp-sidebar-lists'>
+                <li><img src="dirtyharry.jpg" border="0" height="40" width="40" alt="" class="pull-left lsapp-sidebar-img"/><div class="pull-left col-sm-9"><a href="#">GrupaPodium</a>: Thanx for the love! xoxoxo <span class="small">DateTime</span></div><div class="clearfix"></div></li>
+                <li><img src="dirtyharry.jpg" border="0" height="40" width="40" alt="" class="pull-left lsapp-sidebar-img"/><div class="pull-left col-sm-9"><a href="#">GrupaPodium</a> loves <a href="#">Favorite Russian Groups</a> <span class="small">DateTime</span></div><div class="clearfix"></div></li>
+                <li><img src="jorjafox.jpg" border="0" height="40" width="40" alt="" class="pull-left lsapp-sidebar-img"/><div class="pull-left col-sm-9"><a href="#">OfficialCerebro</a> loves <a href="#">Favorite Russian Groups</a> <span class="small">DateTime</span></div><div class="clearfix"></div></li>
+                <li><img src="peter.jpg" border="0" height="40" width="40" alt="" class="pull-left lsapp-sidebar-img"/><div class="pull-left col-sm-9"><a href="#">ShinyVader</a> copied from <a href="#">Empire To Do List</a> <span class="small">DateTime</span></div><div class="clearfix"></div></li>
+                <li><img src="peter.jpg" border="0" height="40" width="40" alt="" class="pull-left lsapp-sidebar-img"/><div class="pull-left col-sm-9"><a href="#">AnakinLover44</a> loves <a href="#">Empire To Do List</a> <span class="small">DateTime</span></div><div class="clearfix"></div></li>
+                <li><img src="hughjackman.jpg" border="0" height="40" width="40" alt="" class="pull-left lsapp-sidebar-img"/><div class="pull-left col-sm-9"><a href="#">Aceroid189</a> copied from <a href="#">New Year's Party Menu</a> <span class="small">DateTime</span></div><div class="clearfix"></div></li>
+                <li><img src="sofia.jpg" border="0" height="40" width="40" alt="" class="pull-left lsapp-sidebar-img"/><div class="pull-left col-sm-9"><a href="#">LizFox</a> copied from <a href="#">New Year's Party Menu</a> <span class="small">DateTime</span></div><div class="clearfix"></div></li>
+                <li><img src="sofia.jpg" border="0" height="40" width="40" alt="" class="pull-left lsapp-sidebar-img"/><div class="pull-left col-sm-9"><a href="#">LizFox</a> created <a href="#">Toby's Birthday Party Menu</a> <span class="small">DateTime</span></div><div class="clearfix"></div></li>
+                <li><img src="sofia.jpg" border="0" height="40" width="40" alt="" class="pull-left lsapp-sidebar-img"/><div class="pull-left col-sm-9"><a href="#">LizFox</a>: Mind if I take your idea for Death Star Dip? ;-) <span>DateTime</span></div><div class="clearfix"></div></li>
+                <li class="more more-messages more-left"><div class="pull-right"><a href="#">more...</a></div><div class="clearfix"></div></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-sm-8">
+          <form role="form" class='full-width ajax-form' id='lsapp-frm-editname'>
+            <h2 id="lsapp-list-title">
+              <div class="form-group">
+                <div id='list-title-container' class="clickable restore"><span id="list-title-txt">List Title</span> </div>
+                <div id="list-title-editor" class="auto-cancel">
+                  <label class='sr-only' for='edit-list-title'>List Title</label>
+                  <textarea style="overflow:hidden;" name="edit-list-title" id="edit-list-title" class="form-control input-lg animated expandable" placeholder="List Title" rows="1">List Title #Label1 #Label2</textarea>
+                  <div class="pull-right">
+                    <button type="submit" class="btn btn-primary btn-large">Save</button>
+                    <button id="btn-delete-list" class="btn btn-large btn-warning">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </h2>
+          </form>
+          <!--<div id="lsapp-list-description">A simple list about getting together for our camping trip!</div>-->
+          <div id="lsapp-labels-cnt">
+            <ul id="lsapp-list-labels" class="labels list-inline">
+              <li><span>#Label1</span></li>
+              <li><span>#Label2</span></li>
+              <li><span>#LabelLongLong</span></li>
+              <li><span>#LabelLongLong</span></li>
+              <li><span>#LabelLongLong</span></li>
+              <li><span>#LabelLongLong</span></li>
+              <li><span>#LabelLongLong</span></li>
+              <li><span>#LabelLongLong</span></li>
+            </ul>
+          </div>
+          <form role='form' class='full-width ajax-form'>
+            <div class="form-group">
+              <label class='sr-only' for='add-to-list'>Add to this list</label>
+              <textarea style="overflow:hidden; width:90%;" name="add-to-list" id="add-to-list" class="form-control input-lg pull-left animated expandable"  placeholder="What do you want to add?" rows="1"></textarea>
+              <button class="btn btn-primary btn-large btn-large-pad pull-right" id="btn-add-item">Add</button>
+            </div>
+          </form>
+          <div class="clearfix"></div>
+          <div id="lsapp-list-data">
+            <form role="form" class="full-width ajax-form">
+              <ul id="lsapp-active-list" class="active-list list-unstyled">
+                <li class="tdl-list-item">
+                  <div class="tdl-active-container">
+                    <div class="top-line restore">
+                      <div class="lsapp-drag-handle pull-left"></div>
+                      <div class="unfinished pull-left">
+                        <!-- <div class="btn btn-large btn-primary disabled"><span class="glyphicon glyphicon-ok"></span></div> -->
+                      </div> 
+                      <div class="active-name clickable pull-left lead">Chips @TheRealDave</div>
+                      <div class="finish pull-right">
+                        <button type="button" class="btn btn-large btn-default"><span class="glyphicon glyphicon-ok"> Finish</span></button>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="list-item-edit auto-cancel">
+                      <label class='sr-only' for='edit-list-title'>Item Name</label>
+                      <textarea style="overflow:hidden;" name="edit-item-title" id="edit-item-title" class="form-control input-lg animated expandable" rows="1">Chips @TheRealDave</textarea>
+                      <div class="pull-right list-item-actions">
+                        <button id="btn-save-item" class="btn btn-primary btn-large">Save</button>
+                        <button id="btn-delete-item" class="btn btn-large btn-warning">Delete</button>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                  <div class="tdl-app-inst"></div>
+                </li>
+                  <li class="tdl-list-item">
+                  <div class="tdl-active-container">
+                    <div class="top-line restore">
+                      <div class="lsapp-drag-handle pull-left"></div>
+                      <div class="finished pull-left">
+                        <div class="btn btn-large btn-primary disabled"><span class="glyphicon glyphicon-ok"></span></div>
+                      </div> 
+                      <div class="active-name clickable pull-left lead">Something longer to test the wrapping up to 255 characters long which would be the maximum you could put in but then this would be entirely too long and not practical for any type of use that you could think of...could you possibly imagine this long anyw?</div>
+                      <div class="finish pull-right">
+                        <button type="button" class="btn btn-large btn-default"><span class="glyphicon glyphicon-ok"> Finish</span></button>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="list-item-edit auto-cancel">
+                      <label class='sr-only' for='edit-list-title'>Item Name</label>
+                      <textarea style="overflow:hidden;" name="edit-item-title" id="edit-item-title" class="form-control input-lg animated expandable" rows="1">Something longer to test the wrapping up to 255 characters long which would be the maximum you could put in but then this would be entirely too long and not practical for any type of use that you could think of...could you possibly imagine this long anyw?</textarea>
+                      <div class="pull-right list-item-actions">
+                        <button id="btn-save-item" class="btn btn-primary btn-large">Save</button>
+                        <button id="btn-delete-item" class="btn btn-large btn-warning">Delete</button>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                  <div class="tdl-app-inst"></div>
+                </li>
+                <li class="tdl-list-item">
+                  <div class="tdl-active-container">
+                    <div class="top-line restore">
+                      <div class="lsapp-drag-handle pull-left"></div>
+                      <div class="finished pull-left">
+                        <div class="btn btn-large btn-primary disabled"><span class="glyphicon glyphicon-ok"></span></div>
+                      </div> 
+                      <div class="active-name finished-name clickable pull-left lead">Something longer to test the wrapping up to 255 characters long which would be the maximum you could put in but then this would be entirely too long and not practical for any type of use that you could think of...could you possibly imagine this long anyw?</div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="list-item-edit auto-cancel">
+                      <label class='sr-only' for='edit-list-title'>Item Name</label>
+                      <div class="active-name lead finished-name">Something longer to test the wrapping up to 255 characters long which would be the maximum you could put in but then this would be entirely too long and not practical for any type of use that you could think of...could you possibly imagine this long anyw?</div>
+                      <div class="pull-right list-item-actions">
+                        <button id="btn-delete-item" class="btn btn-large btn-warning">Delete</button>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                  <div class="tdl-app-inst"></div>
+                </li>
+              </ul>
+            </form>
+          </div>
+
+        </div>
+        <div class="clearfix"></div>
+        <div id="lsapp-footer-user" class="lsapp-footer">
+          <ul class="footer-links list-inline small">
+            <li class="copy">&copy; 2014 tiddle</li>
+            <li class="link"><a href="#">About</a></li>
+            <li class="link"><a href="#">Terms of use</a></li>
+            <li class="link"><a href="#">Contact</a></li>
+            <li class="link"><a href="#">Help</a></li>
+            <li class="link"><a href="#">Blog</a></li>
+            <li class="link"><a href="#">Developers</a></li>
+          </ul>
+        </div>
+      </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.autogrow.js"></script>
+    <script src="js/sortable.min.js"></script>
+    
+    <script>
+      /*/https://github.com/RubaXa/Sortable*/
+      new Sortable(document.getElementById('lsapp-active-list'),{
+        handle:".lsapp-drag-handle",
+        draggable:".tdl-list-item",
+        onAdd: function (evt){
+            var itemEl = evt.item;
+            alert('onadd');
+        },
+
+        onUpdate: function (evt){
+            var itemEl = evt.item; // the current dragged HTMLElement
+            alert('onupdate');
+            //this happens when an element changes position
+        },
+
+        onRemove: function (evt){
+            var itemEl = evt.item;
+            alert('onremove');
+        }
+
+      });
+
+      $(document).ready(function(){
+        
+
+        $(".expandable").autogrow();
+        $(".tip").tooltip();
+        $('.pop').popover();
+
+        $('#list-title-editor').hide();
+        $('.list-item-edit').hide();
+        $(".finish").hide();
+        // $(".lsapp-drag-handle").hide();
+
+        $('#btn-add-item').live('click',function(e){
+          e.preventDefault();
+          //var item=$($('#add-to-list').val()).hide()
+          //$("#lsapp-active-list").prepend($('#add-to-list').val());
+          // $("#lsapp-active-list").children(':first').hide().fadeIn(600);
+          $("#lsapp-active-list").prepend($('<li>'+$('#add-to-list').val()+'</li>').hide().fadeIn(600));
+
+          $('#add-to-list').val('');
+
+        });
+
+        $("#list-title-container").live('click',function(e){
+          //e.preventDefault();
+          $(this).hide();
+          $("#list-title-editor").show();
+        });
+        $(".active-name").live("click",function(){
+          $(this).parent().hide();
+          $(this).parent().siblings(".list-item-edit").show();
+        });
+        $('.tip').live('click',function(e){
+          e.preventDefault();
+          //$(this).children('popover-content').append("<img src='jessicaalba.jpg'/> This is some content");
+          //alert($(this).parent().siblings('div').children('.popover-content').html("Hi!"));
+          //$(this).parent().siblings('div').children('.popover-content').html("<img src='jessicaalba.jpg' height='100' width='100' /><div>This is some extra text as a proof of concept.</div>");
+
+        });
+        $("#lsapp-frm-editname").submit(function(e){
+          e.preventDefault();
+          var nval=$("#edit-list-title").val();
+          alert(nval);
+          return false;
+        });
+        $(".top-line").on('mouseover',function(e){
+          // $(this).children('.lsapp-drag-handle').show();
+          $(this).children('.finish').show();
+        });
+        $(".top-line").on('mouseout',function(e){
+          //$(this).children('.lsapp-drag-handle').hide();
+          $(this).children('.finish').hide();
+        });
+
+        if ($('#lsapp-saved-lists').height() > 150){
+          $('#lsapp-saved-lists').addClass('auto-expand');
+        }
+       
+      });
+    /* HIDE the edit containers if clicked OUTSIDE the container when open, or if you press escape */
+    $(document).mousedown(function(e){
+      var container=$(".auto-cancel");
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        container.hide();
+        $('.restore').show();
+      }
+    });
+    $(document).keyup(function(e){
+      if (e.which === 27){
+        $('.auto-cancel').hide();
+        $('.restore').show();
+      }
+    });
+    </script>
+  </body>
+</html>
